@@ -1,0 +1,1 @@
+# odoo-CoreInventory-website-laravel
