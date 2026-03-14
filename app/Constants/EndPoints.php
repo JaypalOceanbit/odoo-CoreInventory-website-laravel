@@ -87,6 +87,17 @@ class EndPoints
 
     /**
      * ========================================================================
+     * Warehouse Services
+     * ========================================================================
+     */
+    const warehouse_list   = '/warehouse/list';
+    const warehouse_store  = '/warehouse/store';
+    const warehouse_show   = '/warehouse/show/{id}';
+    const warehouse_update = '/warehouse/update/{id}';
+    const warehouse_delete = '/warehouse/delete/{id}';
+
+    /**
+     * ========================================================================
      * Middeleware Route
      * ========================================================================
      */

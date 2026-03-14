@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\MasterUnitController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReceiptController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 // Public Auth Routes
@@ -54,6 +55,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post(EndPoints::delivery_order_update,      [DeliveryOrderController::class, 'update']);
     Route::post(EndPoints::delivery_order_delete,      [DeliveryOrderController::class, 'destroy']);
     Route::post(EndPoints::delivery_order_changeStatus,[DeliveryOrderController::class, 'changeStatus']);
+
+    // Warehouse CRUD
+    Route::get(EndPoints::warehouse_list,    [WarehouseController::class, 'index']);
+    Route::post(EndPoints::warehouse_store,  [WarehouseController::class, 'store']);
+    Route::get(EndPoints::warehouse_show,    [WarehouseController::class, 'show']);
+    Route::post(EndPoints::warehouse_update, [WarehouseController::class, 'update']);
+    Route::post(EndPoints::warehouse_delete, [WarehouseController::class, 'destroy']);
 });
 
 // Middleware Fallback Routes
