@@ -1,6 +1,7 @@
 <?php
 
 use App\Constants\EndPoints;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DeliveryOrderController;
 use App\Http\Controllers\Api\InternalTransferController;
 use App\Http\Controllers\Api\MasterCategoryController;
@@ -84,6 +85,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     // Stock Ledger (History)
     Route::get(EndPoints::stock_ledger_list, [StockLedgerController::class, 'index']);
+
+    // Dashboard
+    Route::get(EndPoints::dashboard, [DashboardController::class, 'index']);
 });
 
 // Middleware Fallback Routes
