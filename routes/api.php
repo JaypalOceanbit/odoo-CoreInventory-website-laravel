@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\MasterCategoryController;
 use App\Http\Controllers\Api\MasterUnitController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReceiptController;
+use App\Http\Controllers\Api\StockAdjustmentController;
+use App\Http\Controllers\Api\StockLedgerController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +73,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post(EndPoints::internal_transfer_update,      [InternalTransferController::class, 'update']);
     Route::post(EndPoints::internal_transfer_delete,      [InternalTransferController::class, 'destroy']);
     Route::post(EndPoints::internal_transfer_changeStatus,[InternalTransferController::class, 'changeStatus']);
+
+    // Stock Adjustment CRUD
+    Route::get(EndPoints::stock_adjustment_list,         [StockAdjustmentController::class, 'index']);
+    Route::post(EndPoints::stock_adjustment_store,       [StockAdjustmentController::class, 'store']);
+    Route::get(EndPoints::stock_adjustment_show,         [StockAdjustmentController::class, 'show']);
+    Route::post(EndPoints::stock_adjustment_update,      [StockAdjustmentController::class, 'update']);
+    Route::post(EndPoints::stock_adjustment_delete,      [StockAdjustmentController::class, 'destroy']);
+    Route::post(EndPoints::stock_adjustment_changeStatus,[StockAdjustmentController::class, 'changeStatus']);
+
+    // Stock Ledger (History)
+    Route::get(EndPoints::stock_ledger_list, [StockLedgerController::class, 'index']);
 });
 
 // Middleware Fallback Routes

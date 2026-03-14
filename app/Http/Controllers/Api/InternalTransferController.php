@@ -7,6 +7,7 @@ use App\Constants\ResponseCodes;
 use App\Http\Controllers\BaseController;
 use App\InternalTransfer;
 use App\Product;
+use App\StockLedger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -59,8 +60,18 @@ class InternalTransferController extends BaseController
                 'status'            => $status,
             ]);
 
-            // stock_qty is a global qty — deduct and re-add cancel each other for internal transfer
-            // only deduct if done (net effect is 0 for same product, but tracked via transfer record)
+            $from = \App\Warehouse::find($request->from_warehouse_id)->name;
+            $to   = \App\Warehouse::find($request->to_warehouse_id)->name;
+
+            StockLedger::create([
+                'date'         => now()->toDateString(),
+                'product_id'   => $request->product_id,
+                'operation'    => StockLedger::OPERATION_TRANSFER,
+                'from'         => $from,
+                'to'           => $to,
+                'qty'          => $request->qty,
+                'reference_id' => $transfer->id,
+            ]);
         });
 
         $this->addSuccessResultKeyValue(Keys::DATA, $transfer->load('product', 'fromWarehouse', 'toWarehouse'));
@@ -174,7 +185,20 @@ class InternalTransferController extends BaseController
             }
         }
 
-        $transfer->update(['status' => $newStatus]);
+        DB::transaction(function () use ($transfer, $newStatus) {
+            if ($newStatus === InternalTransfer::STATUS_DONE) {
+                StockLedger::create([
+                    'date'         => now()->toDateString(),
+                    'product_id'   => $transfer->product_id,
+                    'operation'    => StockLedger::OPERATION_TRANSFER,
+                    'from'         => $transfer->fromWarehouse->name,
+                    'to'           => $transfer->toWarehouse->name,
+                    'qty'          => $transfer->qty,
+                    'reference_id' => $transfer->id,
+                ]);
+            }
+            $transfer->update(['status' => $newStatus]);
+        });
 
         $this->addSuccessResultKeyValue(Keys::DATA, $transfer->fresh()->load('product', 'fromWarehouse', 'toWarehouse'));
         $this->setSuccessMessage('Internal transfer status changed to ' . $newStatus . ' successfully.');

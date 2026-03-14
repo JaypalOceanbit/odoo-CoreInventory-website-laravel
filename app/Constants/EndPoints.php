@@ -110,6 +110,25 @@ class EndPoints
 
     /**
      * ========================================================================
+     * Stock Adjustment Services
+     * ========================================================================
+     */
+    const stock_adjustment_list         = '/stock-adjustment/list';
+    const stock_adjustment_store        = '/stock-adjustment/store';
+    const stock_adjustment_show         = '/stock-adjustment/show/{id}';
+    const stock_adjustment_update       = '/stock-adjustment/update/{id}';
+    const stock_adjustment_delete       = '/stock-adjustment/delete/{id}';
+    const stock_adjustment_changeStatus = '/stock-adjustment/change-status/{id}';
+
+    /**
+     * ========================================================================
+     * Stock Ledger Services
+     * ========================================================================
+     */
+    const stock_ledger_list = '/stock-ledger/list';
+
+    /**
+     * ========================================================================
      * Middeleware Route
      * ========================================================================
      */
