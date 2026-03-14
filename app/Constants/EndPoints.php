@@ -13,7 +13,9 @@ class EndPoints
      */
     const user_register = '/user/register';
     const user_login = '/user/login';
-    const user_forgotPassword = '/user/forgotPassword';
+    const user_forgotPassword  = '/user/forgotPassword';
+    const user_verifyOtp        = '/user/verifyOtp';
+    const user_resetPassword    = '/user/resetPassword';
     const user_forgotPasswordCustom = '/user/forgotPasswordCustom';
     const user_adminUsers = '/user/adminUsers';
     const user_detail = '/user/detail';
