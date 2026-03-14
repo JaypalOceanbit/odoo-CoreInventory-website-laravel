@@ -98,6 +98,18 @@ class EndPoints
 
     /**
      * ========================================================================
+     * Internal Transfer Services
+     * ========================================================================
+     */
+    const internal_transfer_list         = '/internal-transfer/list';
+    const internal_transfer_store        = '/internal-transfer/store';
+    const internal_transfer_show         = '/internal-transfer/show/{id}';
+    const internal_transfer_update       = '/internal-transfer/update/{id}';
+    const internal_transfer_delete       = '/internal-transfer/delete/{id}';
+    const internal_transfer_changeStatus = '/internal-transfer/change-status/{id}';
+
+    /**
+     * ========================================================================
      * Middeleware Route
      * ========================================================================
      */

@@ -2,6 +2,7 @@
 
 use App\Constants\EndPoints;
 use App\Http\Controllers\Api\DeliveryOrderController;
+use App\Http\Controllers\Api\InternalTransferController;
 use App\Http\Controllers\Api\MasterCategoryController;
 use App\Http\Controllers\Api\MasterUnitController;
 use App\Http\Controllers\Api\ProductController;
@@ -62,6 +63,14 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get(EndPoints::warehouse_show,    [WarehouseController::class, 'show']);
     Route::post(EndPoints::warehouse_update, [WarehouseController::class, 'update']);
     Route::post(EndPoints::warehouse_delete, [WarehouseController::class, 'destroy']);
+
+    // Internal Transfer CRUD
+    Route::get(EndPoints::internal_transfer_list,         [InternalTransferController::class, 'index']);
+    Route::post(EndPoints::internal_transfer_store,       [InternalTransferController::class, 'store']);
+    Route::get(EndPoints::internal_transfer_show,         [InternalTransferController::class, 'show']);
+    Route::post(EndPoints::internal_transfer_update,      [InternalTransferController::class, 'update']);
+    Route::post(EndPoints::internal_transfer_delete,      [InternalTransferController::class, 'destroy']);
+    Route::post(EndPoints::internal_transfer_changeStatus,[InternalTransferController::class, 'changeStatus']);
 });
 
 // Middleware Fallback Routes
